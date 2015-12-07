@@ -16,6 +16,11 @@ homeassistant_api = settings.homeassistant_api
 api=remote.API(homeassistant_server, homeassistant_api)
 appVersion = 1.0
 
+def get_entity_type(state):
+    entity_id = state.entity_id
+    entity_type = entity_id.partition('.')[0]
+    return entity_type
+
 def data_init():
 	global MyDataStore
 	MyDataStore = DataStore()
@@ -54,7 +59,7 @@ def intent_request(session, user, request):
                 user = request['intent']['slots']['User']['value']
                 allStates=remote.get_states(api)
                 for state in allStates:
-                    if "device_tracker" in state.entity_id:
+                    if get_entity_type(state) == "device_tracker":
                         hass_devices[state.attributes['friendly_name']]=state.state
                 output_speech = user + " is at " + hass_devices[user]
                 output_type = "PlainText"

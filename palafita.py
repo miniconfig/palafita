@@ -10,6 +10,7 @@
 import json
 import homeassistant.remote as remote
 import homeassistant_settings as settings
+from homeassistant.const import STATE_LOCKED, STATE_UNLOCKED
 
 homeassistant_server = settings.homeassistant_server
 homeassistant_api = settings.homeassistant_api
@@ -70,6 +71,29 @@ def intent_request(session, user, request):
                 response = {"outputSpeech": {"type":output_type,"text":output_speech},"card":{"type":card_type,"title":card_title,"content":card_content},'shouldEndSession':True}	
                 return response 
 
+	elif request['intent']['name'] == "LockIntent":
+                matched_lock = False
+                action = request['intent']['slots']['Action']['value']
+                requested_lock = request['intent']['slots']['LockName']['value']
+                allStates = remote.get_states(api)
+                for state in allStates:
+                    if get_entity_type(state) == "lock":
+                        friendly_name = state.attributes['friendly_name']
+                        if friendly_name.lower() == requested_lock:
+                            matched_lock = True
+                            print(action)
+                            if action == "lock":
+                                remote.set_state(api, state.entity_id, new_state=STATE_LOCKED)
+                                output_speech = "I have locked the " + requested_lock
+                            elif action == "unlock":
+                                remote.set_state(api, state.entity_id, new_state=STATE_UNLOCKED)
+                                output_speech = "I have unlocked the " + requested_lock
+                if matched_lock == False:
+                    output_speech = "I'm sorry, I have not found a lock by that name."
+                output_type = "PlainText"
+                response = {"outputSpeech" : {"type":output_type, "text":output_speech}, 'shouldEndSession':True}
+                return response
+                        
 	elif request['intent']['name'] == "CurrentEnergyIntent":
                 energy_usage = remote.get_state(api, 'sensor.energy_usage')
                 output_speech = 'Your {} is {} {}.'.format(energy_usage.attributes['friendly_name'], energy_usage.state, energy_usage.attributes['unit_of_measurement'])

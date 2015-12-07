@@ -3,6 +3,9 @@ LocateIntent Where's {User}
 LocateIntent Where {User} is
 LocateIntent Where did {User} go
 
+LockIntent to {lock|Action} the {LockName}
+LockIntent to {unlock|Action} the {LockName}
+
 CurrentEnergyIntent How much energy are we using right now
 CurrentEnergyIntent How much power are we using right now
 CurrentEnergyIntent How much energy are we using

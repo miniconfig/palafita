@@ -8,6 +8,19 @@
           "type": "AMAZON.US_FIRST_NAME"
         }]
     },
+        {
+      "intent": "LockIntent",
+      "slots": [
+      {
+          "name": "Action",
+          "type": "LITERAL"
+        },
+        {
+          "name": "LockName",
+          "type": "LOCK_NAME"
+        }
+      ]
+    },
     {
       "intent":"CurrentEnergyIntent",
       "slots" : []

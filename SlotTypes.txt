@@ -1,0 +1,5 @@
+LOCK_NAME
+front door
+back door
+side door
+garage door

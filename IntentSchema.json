@@ -1,0 +1,24 @@
+{
+  "intents": [
+    {
+      "intent": "LocateIntent",
+      "slots": [
+      {
+          "name": "User",
+          "type": "AMAZON.US_FIRST_NAME"
+        }]
+    },
+    {
+      "intent":"CurrentEnergyIntent",
+      "slots" : []
+    },
+    {
+      "intent":"MonthlyEnergyIntent",
+      "slots" : []
+    },
+    {
+      "intent": "HelpIntent",
+      "slots": []
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+LocateIntent Where is {User}
+LocateIntent Where's {User}
+LocateIntent Where {User} is
+LocateIntent Where did {User} go
+
+CurrentEnergyIntent How much energy are we using right now
+CurrentEnergyIntent How much power are we using right now
+CurrentEnergyIntent How much energy are we using
+CurrentEnergyIntent How much power are we using
+CurrentEnergyIntent What's our current energy usage
+CurrentEnergyIntent What our current energy usage is
+CurrentEnergyIntent What our current power usage is
+CurrentEnergyIntent What's our current power usage
+CurrentEnergyIntent What's the current energy usage
+CurrentEnergyIntent What's the current power usage
+
+MonthlyEnergyIntent What's our monthly energy cost
+MonthlyEnergyIntent What's our estimated cost for electricity this month
+MonthlyEnergyIntent What's our monthly electric cost
+MonthlyEnergyIntent What is our estimated cost for electricity this month
+
+HelpIntent help
+HelpIntent help me
+HelpIntent what can I ask you
+HelpIntent get help
+HelpIntent to help
+HelpIntent to help me
+HelpIntent what commands can I ask
+HelpIntent what commands can I say
+HelpIntent what can I do
+HelpIntent what can I use this for
+HelpIntent what questions can I ask
+HelpIntent what can you do
+HelpIntent what do you do
+HelpIntent how do I use you
+HelpIntent how can I use you
+HelpIntent what can you tell me

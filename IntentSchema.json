@@ -22,6 +22,22 @@
       ]
     },
     {
+      "intent":"BedIntent",
+      "slots": [
+      {
+          "name": "Who",
+          "type": "WHO"
+      }]
+    },
+    {
+       "intent":"WakeIntent",
+       "slots": [
+       {
+          "name": "Who",
+          "type": "WHO"
+       }]
+    },
+    {
       "intent":"CurrentEnergyIntent",
       "slots" : []
     },

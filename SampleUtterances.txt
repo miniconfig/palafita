@@ -6,6 +6,12 @@ LocateIntent Where did {User} go
 LockIntent to {lock|Action} the {LockName}
 LockIntent to {unlock|Action} the {LockName}
 
+BedIntent {Who} going to bed
+BedIntent {Who} going to sleep
+
+WakeIntent {Who} waking up
+WakeIntent {Who} awake
+ 
 CurrentEnergyIntent How much energy are we using right now
 CurrentEnergyIntent How much power are we using right now
 CurrentEnergyIntent How much energy are we using

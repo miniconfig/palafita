@@ -42,6 +42,11 @@ def request_handler(session, user, request):
         elif requestType == "IntentRequest":
                 return intent_request(session, user, request)
 
+def build_response(output_speech, shouldEndSession=True):
+    output_type = "PlainText"
+    response = {"outputSpeech" : {"type":output_type, "text":output_speech}, 'shouldEndSession':shouldEndSession}
+    return response
+ 
 def launch_request(session, user, request):
         output_speech = "Welcome to HomeAssistant"
         output_type = "PlainText"
@@ -63,13 +68,7 @@ def intent_request(session, user, request):
                     if get_entity_type(state) == "device_tracker":
                         hass_devices[state.attributes['friendly_name']]=state.state
                 output_speech = user + " is at " + hass_devices[user]
-                output_type = "PlainText"
-                card_type = "Simple"
-                card_title = "Location"
-                card_content = hass_devices[user]
-                print(output_speech)
-                response = {"outputSpeech": {"type":output_type,"text":output_speech},"card":{"type":card_type,"title":card_title,"content":card_content},'shouldEndSession':True}      
-                return response 
+                return build_response(output_speech) 
 
         elif request['intent']['name'] == "LockIntent":
                 matched_lock = False
@@ -90,9 +89,7 @@ def intent_request(session, user, request):
                                 output_speech = "I have unlocked the " + requested_lock
                 if matched_lock == False:
                     output_speech = "I'm sorry, I have not found a lock by that name."
-                output_type = "PlainText"
-                response = {"outputSpeech" : {"type":output_type, "text":output_speech}, 'shouldEndSession':True}
-                return response
+                return build_response(output_speech)
       
         elif request['intent']['name'] == "BedIntent":
                 who = request['intent']['slots']['Who']['value']
@@ -102,39 +99,23 @@ def intent_request(session, user, request):
                    script_name = "script.go_to_bed1"
                 remote.call_service(api, 'script', 'turn_on', {'entity_id': '{}'.format(script_name)}) 
                 output_speech = "Goodnight"
-                output_type = "PlainText"
-                response = {"outputSpeech" : {"type":output_type, "text":output_speech}, 'shouldEndSession':True}
-                return response
+                return build_response(output_speech)
 
         elif request['intent']['name'] == "WakeIntent":
                 script_name = "script.wake_up"
                 remote.call_service(api, 'script', 'turn_on', {'entity_id': '{}'.format(script_name)})
                 output_speech = "Good Morning"
-                output_type = "PlainText"
-                response = {"outputSpeech" : {"type":output_type, "text":output_speech}, 'shouldEndSession':True}
-                return response
+                return build_response(output_speech)
         
         elif request['intent']['name'] == "CurrentEnergyIntent":
                 energy_usage = remote.get_state(api, 'sensor.energy_usage')
                 output_speech = 'Your {} is {} {}.'.format(energy_usage.attributes['friendly_name'], energy_usage.state, energy_usage.attributes['unit_of_measurement'])
-                output_type = "PlainText"
-
-                card_type = "Simple"
-                card_title = "Energy Usage"
-                card_content = output_speech
-                response = {"outputSpeech": {"type":output_type,"text":output_speech},"card":{"type":card_type,"title":card_title,"content":card_content},'shouldEndSession':False}
-                return response
+                return build_response(output_speech)
 
         elif request['intent']['name'] == "MonthlyEnergyIntent":
                 energy_cost = remote.get_state(api, 'sensor.energy_cost')
                 output_speech = 'Your {} is ${}'.format(energy_cost.attributes['friendly_name'], energy_cost.state)
-                output_type = "PlainText"
-
-                card_type = "Simple"
-                card_title = "Energy Cost"
-                card_content = output_speech
-                response = {"outputSpeech": {"type":output_type,"text":output_speech},"card":{"type":card_type,"title":card_title,"content":card_content},'shouldEndSession':False}
-                return response
+                return build_response(output_speech)
                 
         elif request['intent']['name'] ==  "HelpIntent":
                 output_speech = "This is the HomeAssistant app. Right now, you can only ask where someone is, or ask about your energy usage.  But I have big plans. "
